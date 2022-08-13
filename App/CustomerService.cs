@@ -1,12 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using App.DataAccess;
+using App.Repositories;
+using App.Services;
+using System;
 
 namespace App
 {
     public class CustomerService
     {
+        private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly ICompanyRepository _companyRepository;
+        private readonly ICustomerCreditService _customerCreditService;
+        private readonly ICustomerDataAccess _customerDataAccess;
+
+        public CustomerService(IDateTimeProvider dateTimeProvider, ICompanyRepository companyRepository, ICustomerCreditService customerCreditService, ICustomerDataAccess customerDataAccess)
+        {
+            _dateTimeProvider = dateTimeProvider;
+            _companyRepository = companyRepository;
+            _customerCreditService = customerCreditService;
+            _customerDataAccess = customerDataAccess;
+        }
+
+        public CustomerService() : this(new DateTimeProvider(), new CompanyRepository(), new CustomerCreditServiceClient(), new CustomerDataAccessProxy())
+        {
+
+        }
+
         public bool AddCustomer(string firname, string surname, string email, DateTime dateOfBirth, int companyId)
         {
             if (string.IsNullOrEmpty(firname) || string.IsNullOrEmpty(surname))
@@ -14,13 +32,13 @@ namespace App
                 return false;
             }
 
-            if (!email.Contains("@") && !email.Contains("."))
+            if (!(email.Contains("@") && email.Contains(".")))
             {
                 return false;
             }
 
-            var now = DateTime.Now;
-            int age = now.Year - dateOfBirth.Year;
+            var now = _dateTimeProvider.DateTimeNow;
+            var age = now.Year - dateOfBirth.Year;
             if (now.Month < dateOfBirth.Month || (now.Month == dateOfBirth.Month && now.Day < dateOfBirth.Day)) age--;
 
             if (age < 21)
@@ -28,17 +46,16 @@ namespace App
                 return false;
             }
 
-            var companyRepository = new CompanyRepository();
-            var company = companyRepository.GetById(companyId);
+            var company = _companyRepository.GetById(companyId);
 
             var customer = new Customer
-                               {
-                                   Company = company,
-                                   DateOfBirth = dateOfBirth,
-                                   EmailAddress = email,
-                                   Firstname = firname,
-                                   Surname = surname
-                               };
+            {
+                Company = company,
+                DateOfBirth = dateOfBirth,
+                EmailAddress = email,
+                Firstname = firname,
+                Surname = surname
+            };
 
             if (company.Name == "VeryImportantClient")
             {
@@ -49,22 +66,20 @@ namespace App
             {
                 // Do credit check and double credit limit
                 customer.HasCreditLimit = true;
-                using (var customerCreditService = new CustomerCreditServiceClient())
-                {
-                    var creditLimit = customerCreditService.GetCreditLimit(customer.Firstname, customer.Surname, customer.DateOfBirth);
-                    creditLimit = creditLimit*2;
-                    customer.CreditLimit = creditLimit;
-                }
+
+                var creditLimit = _customerCreditService.GetCreditLimit(customer.Firstname, customer.Surname, customer.DateOfBirth);
+                creditLimit = creditLimit * 2;
+                customer.CreditLimit = creditLimit;
+
             }
             else
             {
                 // Do credit check
                 customer.HasCreditLimit = true;
-                using (var customerCreditService = new CustomerCreditServiceClient())
-                {
-                    var creditLimit = customerCreditService.GetCreditLimit(customer.Firstname, customer.Surname, customer.DateOfBirth);
-                    customer.CreditLimit = creditLimit;
-                }
+
+                var creditLimit = _customerCreditService.GetCreditLimit(customer.Firstname, customer.Surname, customer.DateOfBirth);
+                customer.CreditLimit = creditLimit;
+
             }
 
             if (customer.HasCreditLimit && customer.CreditLimit < 500)
@@ -72,7 +87,7 @@ namespace App
                 return false;
             }
 
-            CustomerDataAccess.AddCustomer(customer);
+            _customerDataAccess.AddCustomer(customer);
 
             return true;
         }

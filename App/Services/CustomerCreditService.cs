@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace App
+﻿namespace App.Services
 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName = "App.ICustomerCreditService")]
@@ -15,13 +10,13 @@ namespace App
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ICustomerCreditServiceChannel : App.ICustomerCreditService, System.ServiceModel.IClientChannel
+    public interface ICustomerCreditServiceChannel : ICustomerCreditService, System.ServiceModel.IClientChannel
     {
     }
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class CustomerCreditServiceClient : System.ServiceModel.ClientBase<App.ICustomerCreditService>, App.ICustomerCreditService
+    public partial class CustomerCreditServiceClient : System.ServiceModel.ClientBase<ICustomerCreditService>, ICustomerCreditService
     {
 
         public CustomerCreditServiceClient()

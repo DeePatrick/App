@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using App.Models;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 
-namespace App
+namespace App.Repositories
 {
-    public class CompanyRepository
+    public class CompanyRepository: ICompanyRepository
     {
         public Company GetById(int id)
         {
@@ -43,4 +40,6 @@ namespace App
             return company;
         }
     }
+
+
 }

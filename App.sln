@@ -5,9 +5,7 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{C0BC6C85-09A4-4F1C-B42C-D5628566B38B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{47C78E86-80DC-4522-A9E6-704C736CD7E9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Test", "App.Test\App.Test.csproj", "{59F89614-BFA8-43B2-A124-C4BF479A5D8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRefactoring.UnitTests", "TestRefactoring.UnitTests\TestRefactoring.UnitTests.csproj", "{62F3D1ED-191A-443C-B4AA-125330413179}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,16 +17,13 @@ Global
 		{C0BC6C85-09A4-4F1C-B42C-D5628566B38B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0BC6C85-09A4-4F1C-B42C-D5628566B38B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0BC6C85-09A4-4F1C-B42C-D5628566B38B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59F89614-BFA8-43B2-A124-C4BF479A5D8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59F89614-BFA8-43B2-A124-C4BF479A5D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59F89614-BFA8-43B2-A124-C4BF479A5D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59F89614-BFA8-43B2-A124-C4BF479A5D8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62F3D1ED-191A-443C-B4AA-125330413179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62F3D1ED-191A-443C-B4AA-125330413179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62F3D1ED-191A-443C-B4AA-125330413179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62F3D1ED-191A-443C-B4AA-125330413179}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{59F89614-BFA8-43B2-A124-C4BF479A5D8E} = {47C78E86-80DC-4522-A9E6-704C736CD7E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DDDB115-5DA6-4864-952A-2CC9013406E1}
